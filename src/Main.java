@@ -28,10 +28,7 @@ public class Main {
             throw new IllegalArgumentException("Операнд должен быть вписан в \"\"");
         }
         operand1 = operand1.substring(1, operand1.length() - 1);
-        if (!operand2.startsWith("\"") || !operand2.endsWith("\"")) {
-            throw new IllegalArgumentException("Операнд должен быть вписан в \"\"");
-        }
-        operand2 = operand2.substring(1, operand2.length() - 1);
+
 
         if (!operand1.matches("^[a-zA-Z]+$")) {
             throw new IllegalArgumentException("Первый операнд должен быть строкой");
@@ -40,19 +37,21 @@ public class Main {
         String result;
         switch (operand) {
             case "+":
+                operand2 = operand2.substring(1, operand2.length() - 1);
                 result = addStrings(operand1, operand2);
                 break;
             case "-":
+                operand2 = operand2.substring(1, operand2.length() - 1);
                 result = minusStrings(operand1, operand2);
                 break;
             case "*":
                 if (!operand2.matches("[1-9|10]")) {
                     throw new IllegalArgumentException("Числа не должны быть меньше 1 и привышать 10");
                 }
-                result = multiplyStrings(operand1, operand2);
+                result = multiplyStrings(operand1, Integer.parseInt(operand2));
                 break;
             case "/":
-                result = divideStrings(operand1, operand2);
+                result = divideStrings(operand1, Integer.parseInt(operand2));
                 break;
             default:
                 throw new IllegalArgumentException("Вы ввели некорректный оператор вычисления");
@@ -74,16 +73,14 @@ public class Main {
         return result;
     }
 
-    public static String multiplyStrings(String str1, String str2) {
-        int str = Integer.parseInt(str2);
-        String result = str1.repeat(str);
+    public static String multiplyStrings(String str1, int str2) {
+        String result = str1.repeat(str2);
         return result;
     }
 
-    public static String divideStrings(String str1, String str2) {
+    public static String divideStrings(String str1, int str2) {
         char[] strToArray = str1.toCharArray();
-        int str = Integer.parseInt(str2);
-        int result1 = strToArray.length / str;
+        int result1 = strToArray.length / str2;
         char[] result2 = Arrays.copyOfRange(strToArray, 0, result1);
         String result3 = Arrays.toString(result2);
         String result = new String(result3).substring(1, 3 * result2.length - 1).replace(", ", "");
