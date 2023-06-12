@@ -37,10 +37,16 @@ public class Main {
         String result;
         switch (operand) {
             case "+":
+                if (!operand2.startsWith("\"") || !operand2.endsWith("\"")) {
+                    throw new IllegalArgumentException("Операнд должен быть вписан в \"\"");
+                }
                 operand2 = operand2.substring(1, operand2.length() - 1);
                 result = addStrings(operand1, operand2);
                 break;
             case "-":
+                if (!operand2.startsWith("\"") || !operand2.endsWith("\"")) {
+                    throw new IllegalArgumentException("Операнд должен быть вписан в \"\"");
+                }
                 operand2 = operand2.substring(1, operand2.length() - 1);
                 result = minusStrings(operand1, operand2);
                 break;
